@@ -1,6 +1,15 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateProverbDto } from './dto/create-proverb.dto';
+import { FilterDto } from './dto/filter.dto';
 import { Proverb } from './entities/proverb.entity';
 import { ProverbService } from './proverb.service';
 
@@ -9,10 +18,13 @@ import { ProverbService } from './proverb.service';
 export class ProverbController {
   constructor(private proverbService: ProverbService) {}
 
-  @Get()
+  @Get('/:author')
   @ApiResponse({ status: HttpStatus.OK, description: 'ok', type: [Proverb] })
-  getAll(): Promise<Proverb[]> {
-    return this.proverbService.findAll();
+  getProverbsByFilter(
+    @Query() filterDto: FilterDto,
+    @Param('author') author: string,
+  ): Promise<Proverb[]> {
+    return this.proverbService.findAll(filterDto, author);
   }
 
   @Post()
