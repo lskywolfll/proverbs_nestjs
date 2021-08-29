@@ -16,7 +16,12 @@ import { ProverbService } from './proverb.service';
 @Controller('proverb')
 @ApiTags('proverbs')
 export class ProverbController {
-  constructor(private proverbService: ProverbService) {}
+  constructor(private readonly proverbService: ProverbService) {}
+
+  @Get()
+  getAllProverbsByFilter(@Query() filterDto: FilterDto): Promise<Proverb[]> {
+    return this.proverbService.findAll(filterDto);
+  }
 
   @Get('/:author')
   @ApiResponse({ status: HttpStatus.OK, description: 'ok', type: [Proverb] })
@@ -24,10 +29,11 @@ export class ProverbController {
     @Query() filterDto: FilterDto,
     @Param('author') author: string,
   ): Promise<Proverb[]> {
-    return this.proverbService.findAll(filterDto, author);
+    return this.proverbService.findAllByAuthor(filterDto, author);
   }
 
   @Post()
+  @ApiResponse({ status: HttpStatus.CREATED, description: 'ok', type: Proverb })
   createProverb(@Body() createProverbDto: CreateProverbDto) {
     return this.proverbService.create(createProverbDto);
   }
