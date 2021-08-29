@@ -8,10 +8,14 @@ import { ProverbsRepository } from './proverb.repository';
 export class ProverbService {
   constructor(
     @InjectRepository(ProverbsRepository)
-    private proverbRepository: ProverbsRepository,
+    private readonly proverbRepository: ProverbsRepository,
   ) {}
 
-  findAll(filterDto: FilterDto, author: string) {
+  findAll(filterDto: FilterDto) {
+    return this.proverbRepository.getAllProverbs(filterDto);
+  }
+
+  findAllByAuthor(filterDto: FilterDto, author: string) {
     return this.proverbRepository.getProverb(filterDto, author);
   }
 

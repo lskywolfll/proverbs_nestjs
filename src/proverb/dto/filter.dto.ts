@@ -4,4 +4,8 @@ export class FilterDto {
   @IsString()
   @IsOptional()
   content: string;
+
+  @IsOptional()
+  @IsString()
+  author: string;
 }
