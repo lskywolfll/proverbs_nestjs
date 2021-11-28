@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
     ProverbModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: '172.18.0.2',
+      host: '172.19.0.2',
       port: 5432,
       username: 'postgres',
       password: 'admin',
