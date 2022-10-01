@@ -1,24 +1,42 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProverbModule } from './proverb/proverb.module';
 import { UserModule } from './user/user.module';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Module({
   imports: [
-    ProverbModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '172.18.0.2',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'proverbs',
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        return {
+          type: 'postgres',
+          host: config.get('DB_HOSTNAME'),
+          port: config.get('DB_PORT'),
+          username: config.get('DB_USER'),
+          password: config.get('DB_PASSWORD'),
+          database: config.get('DB_DATABASE'),
+          entities: [],
+          synchronize: true,
+          autoLoadEntities: true,
+          logging: true,
+          ssl: {
+            ca: fs.readFileSync(
+              path.join(__dirname, config.get('SSL_CERT')),
+              'utf-8',
+            ),
+          },
+        };
+      },
     }),
     UserModule,
+    ProverbModule,
   ],
   controllers: [AppController],
   providers: [AppService],

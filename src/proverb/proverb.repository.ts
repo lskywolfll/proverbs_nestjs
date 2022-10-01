@@ -1,10 +1,15 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { Proverb } from './entities/proverb.entity';
 import { FilterDto } from './dto/filter.dto';
 import { InternalServerErrorException } from '@nestjs/common';
 
-@EntityRepository(Proverb)
+@Injectable()
 export class ProverbsRepository extends Repository<Proverb> {
+  constructor(private dataSource: DataSource) {
+    super(Proverb, dataSource.createEntityManager());
+  }
+
   async getAllProverbs(filterDto: FilterDto): Promise<Proverb[]> {
     const { author, content } = filterDto;
     const query = this.createQueryBuilder('proverb');
@@ -47,8 +52,8 @@ export class ProverbsRepository extends Repository<Proverb> {
     }
   }
 
-  async getProverb(filterDto: FilterDto, author: string): Promise<Proverb[]> {
-    const { content } = filterDto;
+  async getProverb(filterDto: FilterDto): Promise<Proverb[]> {
+    const { content, author } = filterDto;
     const query = this.createQueryBuilder('proverb');
     query.where({ author });
 
