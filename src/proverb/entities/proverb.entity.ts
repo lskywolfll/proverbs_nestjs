@@ -8,10 +8,14 @@ export class Proverb {
   id: number;
 
   @Column()
-  @ApiProperty({ description: 'Content for message value for all people' })
+  @ApiProperty({ description: 'Content for proverb' })
   content: string;
 
   @Column()
   @ApiProperty({ description: 'Author of the content' })
   author: string;
+
+  @Column()
+  @ApiProperty({ description: 'Url of the content' })
+  image: string;
 }

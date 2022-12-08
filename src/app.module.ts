@@ -5,8 +5,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProverbModule } from './proverb/proverb.module';
 import { UserModule } from './user/user.module';
-import * as fs from 'fs';
-import * as path from 'path';
 
 @Module({
   imports: [
@@ -26,12 +24,6 @@ import * as path from 'path';
           synchronize: true,
           autoLoadEntities: true,
           logging: true,
-          ssl: {
-            ca: fs.readFileSync(
-              path.join(__dirname, config.get('SSL_CERT')),
-              'utf-8',
-            ),
-          },
         };
       },
     }),
