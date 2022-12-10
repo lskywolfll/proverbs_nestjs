@@ -2,10 +2,15 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class CreateProverbDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'content of proverb' })
   @IsString()
   content: string;
-  @ApiProperty()
+
+  @ApiProperty({ description: 'author of content' })
   @IsString()
   author: string;
+
+  @ApiProperty({ description: 'url of the origin image cloud' })
+  @IsString()
+  image: string;
 }

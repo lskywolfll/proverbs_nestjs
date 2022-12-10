@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  Entity,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Proverb } from '../../proverb/entities/proverb.entity';
 import { User } from '../../user/entities/user.entity';
 
@@ -24,8 +18,8 @@ export class Publication {
   last_update: Date;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @OneToMany((type) => Proverb, (proverb) => proverb)
-  proverb: Proverb[];
+  @OneToOne((type) => Proverb, (proverb) => proverb)
+  proverb: Proverb;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToOne((type) => User, (user) => user)
