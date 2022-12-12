@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 export class FilterDto {
   @ApiProperty()
@@ -11,4 +18,19 @@ export class FilterDto {
   @IsOptional()
   @IsString()
   author: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  skip: number;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  limit: number;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsArray()
+  proverbs_ids: number[];
 }

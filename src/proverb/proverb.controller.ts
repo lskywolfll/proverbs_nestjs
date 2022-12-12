@@ -19,7 +19,7 @@ export class ProverbController {
   constructor(private readonly proverbService: ProverbService) {}
 
   @Get()
-  getAllProverbsByFilter(@Query() filterDto: FilterDto): Promise<Proverb[]> {
+  getAllProverbsByFilter(@Body() filterDto: FilterDto): Promise<Proverb[]> {
     return this.proverbService.findAll(filterDto);
   }
 

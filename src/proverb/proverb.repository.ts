@@ -4,6 +4,10 @@ import { Proverb } from './entities/proverb.entity';
 import { FilterDto } from './dto/filter.dto';
 import { InternalServerErrorException } from '@nestjs/common';
 
+// function between(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1) + min);
+// }
+
 @Injectable()
 export class ProverbsRepository extends Repository<Proverb> {
   constructor(private dataSource: DataSource) {
@@ -11,7 +15,7 @@ export class ProverbsRepository extends Repository<Proverb> {
   }
 
   async getAllProverbs(filterDto: FilterDto): Promise<Proverb[]> {
-    const { author, content } = filterDto;
+    const { author, content, proverbs_ids } = filterDto;
     const query = this.createQueryBuilder('proverb');
 
     if (author && content) {
@@ -44,7 +48,19 @@ export class ProverbsRepository extends Repository<Proverb> {
       );
     }
 
+    if (proverbs_ids) {
+      query.andWhere(
+        `
+        proverb.id NOT IN (${proverbs_ids.map((p) => p)})
+      `,
+        {},
+      );
+    }
+
     try {
+      // const count = await query.getManyAndCount();
+      // query.skip(between(1, count));
+      // query.limit(limit || 10);
       const proverbs = await query.getMany();
       return proverbs;
     } catch (error) {

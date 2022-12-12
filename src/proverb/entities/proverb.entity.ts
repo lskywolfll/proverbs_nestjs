@@ -15,7 +15,7 @@ export class Proverb {
   @ApiProperty({ description: 'Author of the content' })
   author: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ description: 'Url of the content' })
   image: string;
 }
