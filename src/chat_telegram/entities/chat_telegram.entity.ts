@@ -13,7 +13,7 @@ export class Chat_Telegram {
   id: number;
 
   @Column()
-  chat_id: string;
+  chat_id: number;
 
   @Column()
   preference: string;

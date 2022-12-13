@@ -12,11 +12,12 @@ export class ChatTelegramService {
 
   async create(chatTelegramDto: ChatTelegramDto) {
     try {
-      //   const isChatIdExist =
-      //     this.chatTelegramRepository.findByChatID(chatTelegramDto);
-      //   if (isChatIdExist) {
-      //     throw new BadRequestException('The chat_id is already created');
-      //   }
+      const isChatIdExist = await this.chatTelegramRepository.findByChatID(
+        chatTelegramDto,
+      );
+      if (isChatIdExist) {
+        throw new BadRequestException('The chat_id is already created');
+      }
       const parsedReminder: any = chatTelegramDto.reminder;
       chatTelegramDto.reminder = JSON.parse(parsedReminder);
       const newReminder = this.reminderRepository.create({
