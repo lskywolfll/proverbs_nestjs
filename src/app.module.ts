@@ -5,8 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProverbModule } from './proverb/proverb.module';
 import { UserModule } from './user/user.module';
-import { PreferenceChatModule } from './preference_chat/preference_chat.module';
 import { ChatTelegramModule } from './chat_telegram/chat_telegram.module';
+import { ReminderModule } from './reminder/reminder.module';
 
 @Module({
   imports: [
@@ -31,8 +31,8 @@ import { ChatTelegramModule } from './chat_telegram/chat_telegram.module';
     }),
     UserModule,
     ProverbModule,
-    PreferenceChatModule,
     ChatTelegramModule,
+    ReminderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
