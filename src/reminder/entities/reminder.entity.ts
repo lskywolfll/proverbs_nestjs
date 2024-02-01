@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { daysReminder } from '../../utils/index';
 
 @Entity()
 export class Reminder {
@@ -14,9 +15,9 @@ export class Reminder {
   @Column()
   @ApiProperty({
     description: 'Days of reminder on week',
-    example: 'monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+    example: 'all',
   })
-  days: string;
+  days: daysReminder;
 
   @Column()
   @ApiProperty({ description: 'Zone of the time' })

@@ -19,7 +19,6 @@ async function bootstrap() {
       .setTitle('Proverbs Example')
       .setDescription('The proverbs API description')
       .setVersion('1.0')
-      .addTag('proverbs')
       .build();
 
     const document = SwaggerModule.createDocument(app, config);

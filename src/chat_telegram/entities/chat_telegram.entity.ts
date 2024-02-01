@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Reminder } from '../../reminder/entities/reminder.entity';
+import { User } from '../../user/entities/user.entity';
+import { PreferenceStatus } from '../dto/preference.enum';
 
 @Entity()
 export class Chat_Telegram {
@@ -15,11 +17,18 @@ export class Chat_Telegram {
   @Column()
   chat_id: number;
 
-  @Column()
-  preference: string;
+  @Column({
+    type: 'enum',
+    enum: PreferenceStatus,
+  })
+  preference: PreferenceStatus;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @OneToOne(() => Reminder)
   @JoinColumn()
+  @OneToOne((type) => Reminder, (reminder) => reminder)
   reminder: Reminder;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @OneToOne((type) => User, (user) => user)
+  user: User;
 }

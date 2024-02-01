@@ -19,7 +19,7 @@ export class CreatePublcationDto {
   @Type(() => CreateProverbDto)
   proverb: CreateProverbDto;
 
-  @ApiProperty({ description: 'User content' })
+  @ApiProperty({ description: 'Created by user' })
   @Type(() => User)
   user: User;
 }

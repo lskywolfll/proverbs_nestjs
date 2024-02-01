@@ -58,9 +58,6 @@ export class ProverbsRepository extends Repository<Proverb> {
     }
 
     try {
-      // const count = await query.getManyAndCount();
-      // query.skip(between(1, count));
-      // query.limit(limit || 10);
       const proverbs = await query.getMany();
       return proverbs;
     } catch (error) {
