@@ -7,10 +7,12 @@ import { ProverbModule } from './proverb/proverb.module';
 import { UserModule } from './user/user.module';
 import { ChatTelegramModule } from './chat_telegram/chat_telegram.module';
 import { ReminderModule } from './reminder/reminder.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
